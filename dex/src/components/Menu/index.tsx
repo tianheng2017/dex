@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Info, BookOpen, Code, PieChart, MessageCircle } from 'react-feather'
+import { Info, BookOpen } from 'react-feather'
 import styled from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
@@ -49,7 +49,7 @@ const StyledMenu = styled.div`
 `
 
 const MenuFlyout = styled.span`
-  min-width: 8.125rem;
+  min-width: 13.125rem;
   background-color: ${({ theme }) => theme.bg3};
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
     0px 24px 32px rgba(0, 0, 0, 0.01);
@@ -78,44 +78,41 @@ const MenuItem = styled(ExternalLink)`
   }
 `
 
-const CODE_LINK = 'https://github.com/Uniswap/uniswap-interface'
-
 export default function Menu() {
-  const node = useRef<HTMLDivElement>()
-  const [open, toggle] = useToggle(false)
+    const node = useRef<HTMLDivElement>()
+    const [open, toggle] = useToggle(false)
 
-  useOnClickOutside(node, open ? toggle : undefined)
+    useOnClickOutside(node, open ? toggle : undefined)
 
-  return (
-    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/30451
-    <StyledMenu ref={node as any}>
-      <StyledMenuButton onClick={toggle}>
-        <StyledMenuIcon />
-      </StyledMenuButton>
-      {open && (
-        <MenuFlyout>
-          <MenuItem id="link" href="https://uniswap.org/">
-            <Info size={14} />
-            About
-          </MenuItem>
-          <MenuItem id="link" href="https://uniswap.org/docs/v2">
-            <BookOpen size={14} />
-            Docs
-          </MenuItem>
-          <MenuItem id="link" href={CODE_LINK}>
-            <Code size={14} />
-            Code
-          </MenuItem>
-          <MenuItem id="link" href="https://discord.gg/EwFs3Pp">
-            <MessageCircle size={14} />
-            Discord
-          </MenuItem>
-          <MenuItem id="link" href="https://uniswap.info/">
-            <PieChart size={14} />
-            Analytics
-          </MenuItem>
-        </MenuFlyout>
-      )}
-    </StyledMenu>
-  )
+    return (
+        <StyledMenu ref={node as any}>
+            <StyledMenuButton onClick={toggle}>
+                <StyledMenuIcon />
+            </StyledMenuButton>
+            {open && (
+                <MenuFlyout>
+                    <MenuItem id="link" href="https://testnet.bnbchain.org/faucet-smart">
+                        <Info size={14} />
+                        BSC测试网水龙头
+                    </MenuItem>
+                    <MenuItem id="link" href="https://testnet.bscscan.com/">
+                        <BookOpen size={14} />
+                        测试网区块浏览器
+                    </MenuItem>
+                    <MenuItem id="link" href="https://learnblockchain.cn/docs/hardhat/guides/scripts.html">
+                        <BookOpen size={14} />
+                        hardhat中文文档
+                    </MenuItem>
+                    <MenuItem id="link" href="https://remix.ethereum.org/">
+                        <BookOpen size={14} />
+                        remix智能合约IDE
+                    </MenuItem>
+                    <MenuItem id="link" href="https://learnblockchain.cn/docs/solidity/">
+                        <BookOpen size={14} />
+                        solidity中文文档
+                    </MenuItem>
+                </MenuFlyout>
+            )}
+        </StyledMenu>
+    )
 }

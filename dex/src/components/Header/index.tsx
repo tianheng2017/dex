@@ -15,7 +15,7 @@ import { useETHBalances } from '../../state/wallet/hooks'
 
 import { YellowCard } from '../Card'
 import Settings from '../Settings'
-// import Menu from '../Menu'
+import Menu from '../Menu'
 
 import { RowBetween } from '../Row'
 import Web3Status from '../Web3Status'
@@ -124,7 +124,7 @@ const NETWORK_LABELS: { [chainId in ChainId]: string | null } = {
   [ChainId.ROPSTEN]: 'Ropsten',
   [ChainId.GÖRLI]: 'Görli',
   [ChainId.KOVAN]: 'Kovan',
-  [ChainId.BSCTEST]: 'BscTest',
+  [ChainId.BSCTEST]: 'BSC测试网',
 }
 
 export default function Header() {
@@ -158,9 +158,8 @@ export default function Header() {
             </AccountElement>
           </HeaderElement>
           <HeaderElementWrap>
-            {/* <VersionSwitch /> */}
             <Settings />
-            {/* <Menu /> */}
+            <Menu />
           </HeaderElementWrap>
         </HeaderControls>
       </RowBetween>
