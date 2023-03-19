@@ -13,7 +13,7 @@ import useToggle from '../../hooks/useToggle'
 import { AppDispatch, AppState } from '../../state'
 import { acceptListUpdate, removeList, selectList } from '../../state/lists/actions'
 import { useSelectedListUrl } from '../../state/lists/hooks'
-import { CloseIcon, ExternalLink, LinkStyledButton, TYPE } from '../../theme'
+import { CloseIcon, LinkStyledButton, TYPE } from '../../theme'
 import listVersionLabel from '../../utils/listVersionLabel'
 import { parseENSAddress } from '../../utils/parseENSAddress'
 import uriToHttp from '../../utils/uriToHttp'
@@ -196,7 +196,6 @@ const ListRow = memo(function ListRow({ listUrl, onBack }: { listUrl: string; on
                     <PopoverContainer show={true} ref={setPopperElement as any} style={styles.popper} {...attributes.popper}>
                         <div>{list && listVersionLabel(list.version)}</div>
                         <SeparatorDark />
-                        <ExternalLink href={`https://tokenlists.org/token-list?url=${listUrl}`}>View list</ExternalLink>
                         <UnpaddedLinkStyledButton onClick={handleRemoveList} disabled={Object.keys(listsByUrl).length === 1}>
                             Remove list
                         </UnpaddedLinkStyledButton>
