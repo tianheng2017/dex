@@ -106,6 +106,6 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@tianheng2017/dex-sdk": "^1.0.1"
+    "@tianheng2017/dex-sdk": "^1.0.9"
   }
 }

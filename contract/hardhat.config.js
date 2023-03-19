@@ -1,17 +1,15 @@
 require("@nomicfoundation/hardhat-toolbox");
 
 module.exports = {
-    // 使用ganache搭建本地区块链测试环境，下载地址：https://trufflesuite.com/ganache
-    // 默认网络ganache
-    defaultNetwork: "ganache",
+    // 默认网络bsctest
+    defaultNetwork: "bsctest",
     networks: {
-        ganache: {
-            // 和ganache的端口和链ID保持一致
-            url: "http://127.0.0.1:7545/",
-            chainId: 1337,
+        bsctest: {
+            url: "https://data-seed-prebsc-1-s3.binance.org:8545/",
+            chainId: 97,
             accounts: [
-                // 钱包私钥，用来部署合约，必填
-                '0x4453a91a47aec8bf9201fdb120211c247d5daa04890c407b83b8b5bd41e52980'
+                // 钱包0xC38967AF63Ab031DBC6aBf41b14f84A09eF8452c私钥，用他身份部署合约
+                '0xe4d30f19888cde4786cfc8900af6850864d63a26e125c5c9cdc7466cc024fb87'
             ],
         },
     },

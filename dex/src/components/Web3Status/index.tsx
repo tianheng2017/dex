@@ -200,7 +200,7 @@ function Web3StatusInner() {
     return (
       <Web3StatusError onClick={toggleWalletModal}>
         <NetworkIcon />
-        <Text>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}</Text>
+            <Text>{error instanceof UnsupportedChainIdError ? '网络不支持' : '错误'}</Text>
       </Web3StatusError>
     )
   } else {

@@ -3,13 +3,14 @@ import { FortmaticConnector as FortmaticConnectorCore } from '@web3-react/fortma
 
 export const OVERLAY_READY = 'OVERLAY_READY'
 
-type FormaticSupportedChains = Extract<ChainId, ChainId.MAINNET | ChainId.ROPSTEN | ChainId.RINKEBY | ChainId.KOVAN>
+type FormaticSupportedChains = Extract<ChainId, ChainId.MAINNET | ChainId.ROPSTEN | ChainId.RINKEBY | ChainId.KOVAN | ChainId.BSCTEST>
 
 const CHAIN_ID_NETWORK_ARGUMENT: { readonly [chainId in FormaticSupportedChains]: string | undefined } = {
   [ChainId.MAINNET]: undefined,
   [ChainId.ROPSTEN]: 'ropsten',
   [ChainId.RINKEBY]: 'rinkeby',
-  [ChainId.KOVAN]: 'kovan'
+  [ChainId.KOVAN]: 'kovan',
+  [ChainId.BSCTEST]: 'BscTest',
 }
 
 export class FortmaticConnector extends FortmaticConnectorCore {
@@ -21,7 +22,7 @@ export class FortmaticConnector extends FortmaticConnectorCore {
       if (chainId in CHAIN_ID_NETWORK_ARGUMENT) {
         this.fortmatic = new Fortmatic(apiKey, CHAIN_ID_NETWORK_ARGUMENT[chainId as FormaticSupportedChains])
       } else {
-        throw new Error(`Unsupported network ID: ${chainId}`)
+        throw new Error(`不支持的网络ID: ${chainId}`)
       }
     }
 

@@ -297,12 +297,12 @@ export default function WalletModal({
                     <CloseIcon onClick={toggleWalletModal}>
                         <CloseColor />
                     </CloseIcon>
-                    <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
+                    <HeaderRow>{error instanceof UnsupportedChainIdError ? '网络不支持' : '连接出错'}</HeaderRow>
                     <ContentWrapper>
                         {error instanceof UnsupportedChainIdError ? (
-                            <h5>Please connect to the appropriate Ethereum network.</h5>
+                            <h5>请切换到币安链测试网</h5>
                         ) : (
-                            'Error connecting. Try refreshing the page.'
+                            '网络错误，请刷新页面'
                         )}
                     </ContentWrapper>
                 </UpperSection>
