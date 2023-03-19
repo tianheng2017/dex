@@ -7,7 +7,7 @@ async function main() {
     const MockERC20 = await hre.ethers.getContractFactory("MockERC20");
 
     // 工厂合约传参（_feeToSetter），我填的hardhat.config.js的accounts私钥对应的钱包
-    const factory = await Factory.deploy("0x8E24F1f19BeB833C3758434DdE7BfA96b2977CD4");
+    const factory = await Factory.deploy("0xC38967AF63Ab031DBC6aBf41b14f84A09eF8452c");
     const weth = await WETH.deploy();
     const multicall = await Multicall.deploy();
     const mockERC20A = await MockERC20.deploy("AAA", "AAA Token");

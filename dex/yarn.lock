@@ -2200,10 +2200,10 @@
     dom-accessibility-api "^0.4.6"
     pretty-format "^25.5.0"
 
-"@tianheng2017/dex-sdk@^1.0.9":
-  version "1.0.9"
-  resolved "https://registry.npmjs.org/@tianheng2017/dex-sdk/-/dex-sdk-1.0.9.tgz#46af5df4d77ed493f12370c11130b3a85bf4cf79"
-  integrity sha512-NIcabO1Dwqz0iWI6bsUuClrJVe33yBqo9AF508xfHgtmwhnV5Izv/6vvxfSw5fM+Xn1STzZiiy9RN0xgi6BjpQ==
+"@tianheng2017/dex-sdk@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@tianheng2017/dex-sdk/-/dex-sdk-1.1.0.tgz#da467b5fb3828dd8a7503fb71d539072a4c56531"
+  integrity sha512-1/aXY8SFCHxaIrik5sNuB74QBBtScg036ftltfyukiTCODAL94VgzeGlxVuRvuXjJHahMpelg+74odCCbb1Wbg==
   dependencies:
     "@uniswap/v2-core" "^1.0.0"
     big.js "^5.2.2"

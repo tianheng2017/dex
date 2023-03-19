@@ -82,8 +82,8 @@
     "@walletconnect/web3-provider": "1.1.1-alpha.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider & react-scripts start",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider & react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
@@ -106,6 +106,6 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@tianheng2017/dex-sdk": "^1.0.9"
+    "@tianheng2017/dex-sdk": "^1.1.0"
   }
 }
