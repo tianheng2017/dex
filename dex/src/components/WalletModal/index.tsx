@@ -300,7 +300,7 @@ export default function WalletModal({
                     <HeaderRow>{error instanceof UnsupportedChainIdError ? '网络不支持' : '连接出错'}</HeaderRow>
                     <ContentWrapper>
                         {error instanceof UnsupportedChainIdError ? (
-                            <h5>请切换到币安链测试网</h5>
+                            <h5>请切换到币安链测试网: https://testnet.bscscan.com，点击网页右下角Add BSC Network添加网络</h5>
                         ) : (
                             '网络错误，请刷新页面'
                         )}
@@ -332,7 +332,7 @@ export default function WalletModal({
                                 setWalletView(WALLET_VIEWS.ACCOUNT)
                             }}
                         >
-                            Back
+                            返回
                         </HoverText>
                     </HeaderRow>
                 ) : (
