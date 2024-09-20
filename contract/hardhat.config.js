@@ -3,7 +3,7 @@ require('@nomiclabs/hardhat-etherscan');
 require('dotenv').config();
 
 module.exports = {
-    defaultNetwork: 'ganache',
+    defaultNetwork: 'bsctestnet',
     networks: {
         ganache: {
             chainId: 1337,
@@ -15,6 +15,14 @@ module.exports = {
             ],
             defaultAccount:
                 '4b23e5ca951b3219a66f9f51ebccb6354e60207f773fb5319f53c9ea5788b7cb',
+        },
+        bsctestnet: {
+            url: 'https://bsc-testnet.infura.io/v3/25979ca44c6d4d0ebc6ac6e518af6bb6',
+            accounts: [
+                '19f77128c3faf52a60e6254119f13284ae58a9cf3d397ff56e29726015cd2be1',
+            ],
+            defaultAccount:
+                '19f77128c3faf52a60e6254119f13284ae58a9cf3d397ff56e29726015cd2be1',
         },
     },
     solidity: {
