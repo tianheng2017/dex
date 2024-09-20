@@ -6,7 +6,7 @@ function replaceInFile(filePath, searchString, replaceString) {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const newFileContent = fileContent.replace(searchString, replaceString);
     fs.writeFileSync(filePath, newFileContent);
-    console.log(`已经成功将 "${searchString}" 替换为 "${replaceString}"`);
+    console.log(`成功将 "${searchString}" 替换为 "${replaceString}"`);
 }
 
 main()
@@ -50,9 +50,9 @@ async function main() {
     await mockERC20B.deployed();
 
     // 查询工厂合约的INIT_CODE_PAIR_HASH
-    const init_code_pair_hash = await factory.INIT_CODE_PAIR_HASH.call().slice(
-        2
-    );
+    const init_code_pair_hash = (
+        await factory.INIT_CODE_PAIR_HASH.call()
+    ).slice(2);
     console.log('INIT_CODE_PAIR_HASH: ', init_code_pair_hash);
 
     // 更新路由合约INIT_CODE_PAIR_HASH

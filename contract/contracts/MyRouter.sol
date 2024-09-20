@@ -692,7 +692,7 @@ library MyLibrary {
                 hex'ff',
                 factory,
                 keccak256(abi.encodePacked(token0, token1)),
-                hex'07de0cb5b800b79646c0c07a5820e21692255238a43c6f35d00404ca614abcff' // init code hash
+                hex'8eda190318abb804b45fcf8e75735be525488a3ab5e2138cc8d4364700cfd8d2' // init code hash
             ))));
     }
 
