@@ -4,10 +4,10 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 import { injected } from '../connectors'
 
 // 路由合约地址，部署合约后修改
-export const ROUTER_ADDRESS = '0xceBf2F2542E651CfD27fc4453458a9c4B2e01523'
+export const ROUTER_ADDRESS = '0xdB43Ed8565B70498a37c79426502eeB5b7c564cf'
 
 type ChainTokenList = {
-    readonly [chainId in ChainId]: Token[]
+  readonly [chainId in ChainId]: Token[]
 }
 
 export const DAI = new Token(ChainId.MAINNET, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'Dai Stablecoin')
@@ -18,80 +18,80 @@ export const MKR = new Token(ChainId.MAINNET, '0x9f8F72aA9304c8B593d555F12eF6589
 export const AMPL = new Token(ChainId.MAINNET, '0xD46bA6D942050d489DBd938a2C909A5d5039A161', 9, 'AMPL', 'Ampleforth')
 
 const WETH_ONLY: ChainTokenList = {
-    [ChainId.MAINNET]: [WETH[ChainId.MAINNET]],
-    [ChainId.ROPSTEN]: [WETH[ChainId.ROPSTEN]],
-    [ChainId.RINKEBY]: [WETH[ChainId.RINKEBY]],
-    [ChainId.GÖRLI]: [WETH[ChainId.GÖRLI]],
-    [ChainId.KOVAN]: [WETH[ChainId.KOVAN]],
-    [ChainId.BSCTEST]: [WETH[ChainId.BSCTEST]],
+  [ChainId.MAINNET]: [WETH[ChainId.MAINNET]],
+  [ChainId.ROPSTEN]: [WETH[ChainId.ROPSTEN]],
+  [ChainId.RINKEBY]: [WETH[ChainId.RINKEBY]],
+  [ChainId.GÖRLI]: [WETH[ChainId.GÖRLI]],
+  [ChainId.KOVAN]: [WETH[ChainId.KOVAN]],
+  [ChainId.BSCTEST]: [WETH[ChainId.BSCTEST]]
 }
 
 // 用于构建交易的中介对
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
-    ...WETH_ONLY,
-    [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, COMP, MKR]
+  ...WETH_ONLY,
+  [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, COMP, MKR]
 }
 
 // 一些代币只能通过特定的交易对进行兑换，因此我们覆盖了考虑这些代币的基础代币列表。
 export const CUSTOM_BASES: { [chainId in ChainId]?: { [tokenAddress: string]: Token[] } } = {
-    [ChainId.MAINNET]: {
-        [AMPL.address]: [DAI, WETH[ChainId.MAINNET]]
-    }
+  [ChainId.MAINNET]: {
+    [AMPL.address]: [DAI, WETH[ChainId.MAINNET]]
+  }
 }
 
 // 用于默认列表中的显示，当添加流动性时。
 export const SUGGESTED_BASES: ChainTokenList = {
-    ...WETH_ONLY,
-    [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT]
+  ...WETH_ONLY,
+  [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT]
 }
 
 // 用于前端构建默认 pair 列表的函数
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
-    ...WETH_ONLY,
-    [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT]
+  ...WETH_ONLY,
+  [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT]
 }
 
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
-    [ChainId.MAINNET]: [
-        [
-            new Token(ChainId.MAINNET, '0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643', 8, 'cDAI', 'Compound Dai'),
-            new Token(ChainId.MAINNET, '0x39AA39c021dfbaE8faC545936693aC917d5E7563', 8, 'cUSDC', 'Compound USD Coin')
-        ],
-        [USDC, USDT],
-        [DAI, USDT]
-    ]
+  [ChainId.MAINNET]: [
+    [
+      new Token(ChainId.MAINNET, '0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643', 8, 'cDAI', 'Compound Dai'),
+      new Token(ChainId.MAINNET, '0x39AA39c021dfbaE8faC545936693aC917d5E7563', 8, 'cUSDC', 'Compound USD Coin')
+    ],
+    [USDC, USDT],
+    [DAI, USDT]
+  ]
 }
 
 export interface WalletInfo {
-    connector?: AbstractConnector
-    name: string
-    iconName: string
-    description: string
-    href: string | null
-    color: string
-    primary?: true
-    mobile?: true
-    mobileOnly?: true
+  connector?: AbstractConnector
+  name: string
+  iconName: string
+  description: string
+  href: string | null
+  color: string
+  primary?: true
+  mobile?: true
+  mobileOnly?: true
 }
 
 export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
-    INJECTED: {
-        connector: injected,
-        name: 'Injected',
-        iconName: 'arrow-right.svg',
-        description: 'Injected web3 provider.',
-        href: null,
-        color: '#010101',
-        primary: true
-    },
-    METAMASK: {
-        connector: injected,
-        name: 'MetaMask',
-        iconName: 'metamask.png',
-        description: 'Easy-to-use browser extension.',
-        href: null,
-        color: '#E8831D'
-    },
+  INJECTED: {
+    connector: injected,
+    name: 'Injected',
+    iconName: 'arrow-right.svg',
+    description: 'Injected web3 provider.',
+    href: null,
+    color: '#010101',
+    primary: true
+  },
+  METAMASK: {
+    connector: injected,
+    name: 'MetaMask',
+    iconName: 'metamask.png',
+    description: 'Easy-to-use browser extension.',
+    href: null,
+    color: '#E8831D'
+  }
 }
 
 export const NetworkContextName = 'NETWORK'
