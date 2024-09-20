@@ -53,7 +53,6 @@ async function main() {
     const init_code_pair_hash = (
         await factory.INIT_CODE_PAIR_HASH.call()
     ).slice(2);
-    console.log('INIT_CODE_PAIR_HASH: ', init_code_pair_hash);
 
     // 更新路由合约INIT_CODE_PAIR_HASH
     replaceInFile(
@@ -63,15 +62,15 @@ async function main() {
     );
 
     // 部署路由合约
-    const router = await Router.deploy(Factory.address, WETH.address);
+    const router = await Router.deploy(factory.address, weth.address);
     await router.deployed();
 
     // 定义env数据
     const data = {
-        Factory: Factory.address,
+        Factory: factory.address,
         INIT_CODE_PAIR_HASH: init_code_pair_hash,
-        WETH: WETH.address,
-        Router: Router.address,
+        WETH: weth.address,
+        Router: router.address,
         multicall: multicall.address,
         TokenA: mockERC20A.address,
         TokenB: mockERC20B.address,
