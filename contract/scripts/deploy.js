@@ -88,7 +88,7 @@ async function main() {
     console.log(`工厂合约: ${factory.address}`);
     console.log(`INIT_CODE_PAIR_HASH: ${init_code_pair_hash}`);
     console.log(`WETH合约: ${weth.address}`);
-    console.log(`Router合约: ${Router.address}`);
+    console.log(`Router合约: ${router.address}`);
     console.log(`multicall合约: ${multicall.address}`);
     console.log(`TokenA合约: ${mockERC20A.address}`);
     console.log(`TokenB合约: ${mockERC20B.address}`);

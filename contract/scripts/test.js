@@ -1,64 +1,50 @@
 const hre = require('hardhat');
 const ethers = hre.ethers;
-const sharkyTokenJson = require('../artifacts/contracts/SharkyToken.sol/SharkyToken.json');
-const sharkyFactoryJson = require('../artifacts/contracts/SharkyFactory.sol/SharkyFactory.json');
-const sharkyPairJson = require('../artifacts/contracts/SharkyPair.sol/SharkyPair.json');
+const tokenJson = require('../artifacts/contracts/MockERC20.sol/MockERC20.json');
+const factoryJson = require('../artifacts/contracts/MyFactory.sol/MyFactory.json');
+const routerJson = require('../artifacts/contracts/MyRouter.sol/MyRouter.json');
+const pairJson = require('../artifacts/contracts/MyRouter.sol/IMyPair.json');
 
 async function main() {
-    const SharkyRouter = await ethers.getContractFactory('SharkyRouter');
-
     const accounts = await ethers.getSigners();
     console.log('\n');
 
     // 获取其他合约实例
-    const sharkyToken = await ethers.getContractAt(
-        sharkyTokenJson.abi,
-        process.env.AAA
+    const token = await ethers.getContractAt(tokenJson.abi, process.env.TokenA);
+    const token2 = await ethers.getContractAt(
+        tokenJson.abi,
+        process.env.TokenB
     );
-    const sharkyToken2 = await ethers.getContractAt(
-        sharkyTokenJson.abi,
-        process.env.BBB
-    );
-    const sharkyFactory = await ethers.getContractAt(
-        sharkyFactoryJson.abi,
+    const factory = await ethers.getContractAt(
+        factoryJson.abi,
         process.env.Factory
     );
-
-    // 部署路由合约
-    const sharkyRouter = await SharkyRouter.deploy(
-        process.env.Factory,
-        process.env.WBNB
+    const router = await ethers.getContractAt(
+        routerJson.abi,
+        process.env.Router
     );
-    await sharkyRouter.deployed();
-    console.log('Router: ', sharkyRouter.address, '\n');
 
     // AAA、BBB授权路由合约
-    await sharkyToken.approve(
-        sharkyRouter.address,
-        ethers.utils.parseEther('100000000')
-    );
-    await sharkyToken2.approve(
-        sharkyRouter.address,
-        ethers.utils.parseEther('100000000')
-    );
+    await token.approve(router.address, ethers.utils.parseEther('100000000'));
+    await token2.approve(router.address, ethers.utils.parseEther('100000000'));
 
     // 查询AAA授权金额
-    const allowanceAAA = await sharkyToken.allowance(
+    const allowanceAAA = await token.allowance(
         accounts[0].address,
-        sharkyRouter.address
+        router.address
     );
     console.log('AAA授权路由: ', ethers.utils.formatEther(allowanceAAA));
     // 查询BBB授权金额
-    const allowanceBBB = await sharkyToken2.allowance(
+    const allowanceBBB = await token2.allowance(
         accounts[0].address,
-        sharkyRouter.address
+        router.address
     );
     console.log('BBB授权路由: ', ethers.utils.formatEther(allowanceBBB), '\n');
 
     // 添加AAA-BBB流动性
-    await sharkyRouter.addLiquidity(
-        sharkyToken.address,
-        sharkyToken2.address,
+    await router.addLiquidity(
+        token.address,
+        token2.address,
         ethers.utils.parseEther('1000000'),
         ethers.utils.parseEther('1000000'),
         0,
@@ -69,27 +55,21 @@ async function main() {
     console.log('向AAA-BBB池子分别添加1000000个AAA和1000000个BBB\n');
 
     // 获取Pair
-    const pairAAABBB = await sharkyFactory.getPair(
-        sharkyToken.address,
-        sharkyToken2.address
-    );
+    const pairAAABBB = await factory.getPair(token.address, token2.address);
     // 实例化Pair
-    const sharkyPair = await ethers.getContractAt(
-        sharkyPairJson.abi,
-        pairAAABBB
-    );
+    const pair = await ethers.getContractAt(pairJson.abi, pairAAABBB);
     console.log('Pair AAA-BBB: ', pairAAABBB);
 
     // 查询池子情况
-    const reserves = await sharkyPair.getReserves();
+    const reserves = await pair.getReserves();
     console.log('池子AAA储备: ', ethers.utils.formatEther(reserves[0]));
     console.log('池子BBB储备: ', ethers.utils.formatEther(reserves[1]), '\n');
 
     // 测试AAA 兑换 BBB
-    await sharkyRouter.swapExactTokensForTokens(
+    await router.swapExactTokensForTokens(
         ethers.utils.parseEther('10000'),
         0,
-        [sharkyToken.address, sharkyToken2.address],
+        [token.address, token2.address],
         accounts[0].address,
         9999999999,
         { gasLimit: 300000 }
@@ -97,32 +77,39 @@ async function main() {
     console.log('10000个AAA兑换BBB成功');
 
     // 测试BBB 兑换 AAA
-    await sharkyRouter.swapExactTokensForTokens(
+    await router.swapExactTokensForTokens(
         ethers.utils.parseEther('10000'),
         0,
-        [sharkyToken2.address, sharkyToken.address],
+        [token2.address, token.address],
         accounts[0].address,
         9999999999,
         { gasLimit: 300000 }
     );
     console.log('10000个BBB兑换AAA成功', '\n');
 
-    // 查看account[1]的AAA余额
-    const balance = await sharkyToken.balanceOf(accounts[1].address);
+    // account[0]TokenA余额
+    const balance1 = await token.balanceOf(accounts[0].address);
     console.log(
-        '检查account[1]是否获得每次swap的0.02%，当前AAA余额为: ',
-        ethers.utils.formatEther(balance),
+        'account[0]TokenA余额: ',
+        ethers.utils.formatEther(balance1),
+        '\n'
+    );
+    // account[0]TokenB余额
+    const balance2 = await token.balanceOf(accounts[0].address);
+    console.log(
+        'account[0]TokenB余额: ',
+        ethers.utils.formatEther(balance2),
         '\n'
     );
 
     console.log(
         'bscscantest合约验证脚本: ',
         `
-        npx hardhat verify --network bsctestnet "${process.env.AAA}" "AAA" "AAA"
-        npx hardhat verify --network bsctestnet "${process.env.BBB}" "BBB" "BBB"
-        npx hardhat verify --network bsctestnet "${process.env.WBNB}"
+        npx hardhat verify --network bsctestnet "${process.env.TokenA}" "AAA" "AAA"
+        npx hardhat verify --network bsctestnet "${process.env.TokenB}" "BBB" "BBB"
+        npx hardhat verify --network bsctestnet "${process.env.WETH}"
         npx hardhat verify --network bsctestnet "${process.env.Factory}" "${accounts[0].address}"
-        npx hardhat verify --network bsctestnet "${sharkyRouter.address}" "${process.env.Factory}" "${process.env.WBNB}"
+        npx hardhat verify --network bsctestnet "${router.address}" "${process.env.Factory}" "${process.env.WETH}"
         `,
         '\n'
     );
